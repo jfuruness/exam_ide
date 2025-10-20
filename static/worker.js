@@ -48,6 +48,12 @@ async function runPythonCode(code) {
     }
 
     try {
+        // Override input() to raise an exception
+        mp.runPython(`
+def input(prompt=""):
+    raise NotImplementedError("input() is not supported in this environment")
+`);
+
         // Execute the code using MicroPython's runPython method
         mp.runPython(code);
 

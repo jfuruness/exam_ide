@@ -19,14 +19,7 @@ pub fn load_code() -> Option<String> {
 
 pub fn get_default_code() -> String {
     load_code().unwrap_or_else(|| {
-        r#"# Welcome to Python IDE!
-# Write your Python code here and click Run
-
-print("Hello, World!")
-
-for i in range(5):
-    print(f"Count: {i}")
-"#
+        r#"print("Hello, World!")"#
         .to_string()
     })
 }

@@ -23,7 +23,8 @@ pub fn App() -> impl IntoView {
         storage::save_code(&current_code);
     });
 
-    let run_code = move |_| {
+    // Shared run code logic
+    let run_code_impl = move || {
         if is_running.get() {
             return;
         }
@@ -67,6 +68,10 @@ pub fn App() -> impl IntoView {
         }
     };
 
+    let run_code = move |_| {
+        run_code_impl();
+    };
+
     let stop_code = move |_| {
         runner.with_value(|r| {
             if let Some(runner_instance) = r {
@@ -76,6 +81,33 @@ pub fn App() -> impl IntoView {
         output.update(|o| o.push_str("\n--- Execution stopped by user ---\n"));
         is_running.set(false);
     };
+
+    // Add keyboard shortcuts: Ctrl+S and Shift+Enter to run code
+    create_effect(move |_| {
+        use wasm_bindgen::closure::Closure;
+        use wasm_bindgen::JsCast;
+        use web_sys::KeyboardEvent;
+
+        let callback = Closure::wrap(Box::new(move |event: KeyboardEvent| {
+            // Ctrl+S or Cmd+S
+            if (event.ctrl_key() || event.meta_key()) && event.key() == "s" {
+                event.prevent_default();
+                run_code_impl();
+            }
+            // Shift+Enter
+            else if event.shift_key() && event.key() == "Enter" {
+                event.prevent_default();
+                run_code_impl();
+            }
+        }) as Box<dyn FnMut(KeyboardEvent)>);
+
+        let window = web_sys::window().expect("no global window");
+        window
+            .add_event_listener_with_callback("keydown", callback.as_ref().unchecked_ref())
+            .expect("failed to add event listener");
+
+        callback.forget();
+    });
 
     view! {
         <Html lang="en"/>
