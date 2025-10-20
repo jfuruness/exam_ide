@@ -1,9 +1,9 @@
 // CodeMirror bundle - lightweight editor with syntax highlighting only
 import { EditorView, keymap, lineNumbers, highlightActiveLine, highlightActiveLineGutter } from '@codemirror/view';
-import { EditorState } from '@codemirror/state';
+import { EditorState, EditorSelection } from '@codemirror/state';
 import { python } from '@codemirror/lang-python';
 import { defaultKeymap, indentWithTab, history, historyKeymap } from '@codemirror/commands';
-import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from '@codemirror/language';
+import { syntaxHighlighting, defaultHighlightStyle, bracketMatching, indentUnit } from '@codemirror/language';
 
 // Create a minimal setup without autocomplete
 const minimalSetup = [
@@ -13,6 +13,7 @@ const minimalSetup = [
     history(),
     bracketMatching(),
     syntaxHighlighting(defaultHighlightStyle),
+    indentUnit.of("    "), // 4 spaces for indentation
     keymap.of([
         ...defaultKeymap,
         ...historyKeymap,

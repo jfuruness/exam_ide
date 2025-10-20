@@ -23,8 +23,6 @@ pub enum WorkerResponse {
     Error { text: String },
     #[serde(rename = "done")]
     Done,
-    #[serde(rename = "timeout")]
-    Timeout,
 }
 
 pub struct PythonRunner {

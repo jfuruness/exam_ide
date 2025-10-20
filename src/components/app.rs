@@ -29,7 +29,7 @@ pub fn App() -> impl IntoView {
         }
 
         is_running.set(true);
-        output.set("Starting execution...\n".to_string());
+        output.set(String::new());
 
         let current_code = code.get_untracked();
 
@@ -46,13 +46,6 @@ pub fn App() -> impl IntoView {
                     is_running.set(false);
                 }
                 WorkerResponse::Done => {
-                    output.update(|o| o.push_str("\n--- Execution completed ---\n"));
-                    is_running.set(false);
-                }
-                WorkerResponse::Timeout => {
-                    output.update(|o| {
-                        o.push_str("\n!!! Execution timeout (30 seconds) !!!\n");
-                    });
                     is_running.set(false);
                 }
             }
@@ -137,7 +130,7 @@ pub fn App() -> impl IntoView {
             // Footer
             <div style="background: #007acc; color: white; padding: 6px 20px; font-size: 12px; display: flex; align-items: center; justify-content: space-between;">
                 <span>"Ready"</span>
-                <span>"MicroPython • Timeout: 30s"</span>
+                <span>"MicroPython WASM"</span>
             </div>
         </div>
     }
