@@ -1,5 +1,6 @@
 use wasm_bindgen::JsValue;
 use web_sys::window;
+use crate::url_codec;
 
 const STORAGE_KEY: &str = "python_code";
 
@@ -18,8 +19,8 @@ pub fn load_code() -> Option<String> {
 }
 
 pub fn get_default_code() -> String {
-    load_code().unwrap_or_else(|| {
-        r#"print("Hello, World!")"#
-        .to_string()
-    })
+    // Priority: URL hash > localStorage > default
+    url_codec::get_code_from_hash()
+        .or_else(load_code)
+        .unwrap_or_else(|| r#"print("Hello, World!")"#.to_string())
 }

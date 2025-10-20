@@ -5,6 +5,7 @@ use crate::components::editor::Editor;
 use crate::components::console::Console;
 use crate::python_runner::{PythonRunner, WorkerResponse};
 use crate::storage;
+use crate::url_codec;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -21,6 +22,12 @@ pub fn App() -> impl IntoView {
     create_effect(move |_| {
         let current_code = code.get();
         storage::save_code(&current_code);
+    });
+
+    // Update URL hash whenever code changes
+    create_effect(move |_| {
+        let current_code = code.get();
+        let _ = url_codec::set_code_in_hash(&current_code);
     });
 
     // Shared run code logic

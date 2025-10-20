@@ -3,6 +3,7 @@ use leptos::*;
 mod components;
 mod python_runner;
 mod storage;
+mod url_codec;
 
 use components::app::App;
 
