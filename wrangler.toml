@@ -1,0 +1,9 @@
+name = "python-ide"
+compatibility_date = "2024-01-01"
+
+[build]
+command = "npm install && npm run bundle-cm && trunk build --release"
+
+[build.upload]
+format = "directory"
+dir = "dist"
