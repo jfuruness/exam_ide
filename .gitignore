@@ -1,0 +1,27 @@
+# Rust
+/target/
+Cargo.lock
+
+# Trunk build output
+/dist/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# CodeMirror bundle (generated)
+static/codemirror.bundle.js
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

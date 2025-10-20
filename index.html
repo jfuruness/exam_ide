@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python IDE</title>
+    <link data-trunk rel="copy-dir" href="static"/>
+    <link data-trunk rel="rust" data-wasm-opt="z"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        // Function to wait for CodeMirror to be loaded
+        function waitForCodeMirror() {
+            return new Promise((resolve) => {
+                if (window.CodeMirrorSetup) {
+                    resolve();
+                } else {
+                    setTimeout(() => waitForCodeMirror().then(resolve), 50);
+                }
+            });
+        }
+
+        // Load CodeMirror first, then wait for WASM
+        const cmScript = document.createElement('script');
+        cmScript.src = '/static/codemirror.bundle.js';
+        cmScript.async = false;
+        document.head.appendChild(cmScript);
+
+        // Wait for both CodeMirror and WASM to load, then start the app
+        window.addEventListener('TrunkApplicationStarted', async () => {
+            console.log('WASM loaded, waiting for CodeMirror...');
+            await waitForCodeMirror();
+            console.log('CodeMirror loaded, starting app...');
+            if (window.wasmBindings && window.wasmBindings.start_app) {
+                window.wasmBindings.start_app();
+            } else {
+                console.error('start_app not found!');
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

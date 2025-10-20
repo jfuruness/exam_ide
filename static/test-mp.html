@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test MicroPython</title>
+</head>
+<body>
+    <h1>Testing MicroPython Module</h1>
+    <pre id="output"></pre>
+
+    <script type="module">
+        const output = document.getElementById('output');
+
+        try {
+            output.textContent += 'Loading MicroPython...\n';
+
+            // Import the module
+            const mp = await import('./micropython.mjs');
+
+            output.textContent += 'Module loaded!\n';
+            output.textContent += 'Module exports: ' + Object.keys(mp).join(', ') + '\n';
+
+            // Try to create the module
+            const micropython = await mp.default();
+
+            output.textContent += 'MicroPython initialized!\n';
+            output.textContent += 'MicroPython API: ' + Object.keys(micropython).join(', ') + '\n';
+
+        } catch (error) {
+            output.textContent += 'ERROR: ' + error.message + '\n' + error.stack;
+        }
+    </script>
+</body>
+</html>

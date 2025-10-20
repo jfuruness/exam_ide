@@ -1,0 +1,23 @@
+{
+  "name": "exam-ide",
+  "version": "1.0.0",
+  "description": "Offline Python IDE for students",
+  "private": true,
+  "scripts": {
+    "build": "trunk build",
+    "serve": "trunk serve",
+    "bundle-cm": "esbuild static/codemirror-bundle.js --bundle --outfile=static/codemirror.bundle.js --format=iife --global-name=CMBundle"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  },
+  "dependencies": {
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.26.3",
+    "@codemirror/language": "^6.10.1",
+    "@codemirror/lang-python": "^6.1.4",
+    "@codemirror/commands": "^6.3.3",
+    "@lezer/highlight": "^1.2.0",
+    "micropython": "^1.0.1"
+  }
+}
