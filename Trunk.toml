@@ -8,7 +8,7 @@ filehash = false
 [[hooks]]
 stage = "post_build"
 command = "sh"
-command_arguments = ["-c", "cp _headers dist/_headers"]
+command_arguments = ["-c", "cp _headers dist/_headers && cp _redirects dist/_redirects"]
 
 [watch]
 ignore = ["./dist", "./static/codemirror.bundle.js"]
