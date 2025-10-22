@@ -3,4 +3,3 @@
   Cross-Origin-Opener-Policy: same-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
-  Cache-Control: no-transform
