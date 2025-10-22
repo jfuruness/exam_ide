@@ -1,5 +1,23 @@
 # Project Context
 
+## Architecture Requirements
+
+### Pure Client-Side SPA (Single Page Application)
+
+**Critical Requirement**: This application MUST be purely client-side with NO network calls.
+
+- **No backend server** - Everything runs in the browser
+- **No API calls** - All functionality is local (WASM + localStorage)
+- **SPA routing** - Using `leptos_router` for client-side navigation
+- **Why**: This is a privacy-focused IDE that runs entirely offline after initial load
+
+**Technologies**:
+- Leptos (Rust → WASM) for UI framework
+- MicroPython WASM for Python execution (runs in Web Worker)
+- CodeMirror for code editing
+- localStorage for code persistence
+- URL hash for code sharing (compressed with flate2/base64)
+
 ## Security Decisions
 
 ### SRI (Subresource Integrity) - Disabled for Self-Hosted Assets
